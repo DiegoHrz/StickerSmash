@@ -13,7 +13,7 @@ const RootLayout = () => {
         <ImageBg PlaceholderImageSource={Placeholder} />
       </View>
       <View  style={{ flex: 1 / 3,  alignItems: 'center'}}> 
-        <Button label="Choose a Photo"  />
+        <Button theme="primary" label="Choose a Photo"  />
         <Button label="Use this Photo"  />
       </View>
       <StatusBar style="auto" />
