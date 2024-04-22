@@ -6,7 +6,7 @@ const ImageBg = ({PlaceholderImageSource}) => {
   return (
     <View>    
         <View>    
-            <Image source={PlaceholderImageSource} className='w-80 h-[440px] rounded-[18px] ' />
+            <Image source={PlaceholderImageSource} className='w-80 h-[440] rounded-[18px] ' />
         </View>
     </View>
   )
