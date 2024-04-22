@@ -1,6 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const Button = ({ label }) => {
+
+const Button = ({ label, theme }) => {
+    if(theme === 'primary'){
+        return
+    }
+
   return (
     <View className="w-80 h-[68]  items-center justify-center p-3" style={{marginHorizontal: 20}} >
       <Pressable
