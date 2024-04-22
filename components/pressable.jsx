@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const Button = ({ label, theme }) => {
+const Button = ({ label, theme, onPress }) => {
   if (theme === "primary") {
     return (
       <View
@@ -13,11 +14,15 @@ const Button = ({ label, theme }) => {
         }}
       >
         <Pressable
-          onPress={() => {
-            alert("Alerta Primary Baby ");
-          }}
-          className="flex rounded-[10px] w-full h-full items-center justify-center bg-[#fff] " 
+          onPress={onPress}
+          className="flex-row rounded-[10px] w-full h-full items-center justify-center bg-[#fff] "
         >
+          <FontAwesome
+            name="picture-o"
+            size={18}
+            color="#25292e"
+            style={{ paddingRight: 8 }}
+          />
           <Text style={{ fontSize: 16, color: "#25292e" }}>{label}</Text>
         </Pressable>
       </View>
