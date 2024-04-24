@@ -35,9 +35,7 @@ const Button = ({ label, theme, onPress }) => {
       style={{ marginHorizontal: 20 }}
     >
       <Pressable
-        onPress={() => {
-          alert("Alerta Baby");
-        }}
+        onPress={onPress}
         className="flex rounded-[10] w-full h-full items-center justify-center "
       >
         <Text className="text-[#fff]" style={{ fontSize: 16 }}>
