@@ -7,6 +7,7 @@ import ImageViewer from "../components/image";
 import Button from "../components/pressable";
 import CircleButton from "../components/circleButton";
 import IconButton from "../components/iconButton";
+import EmojiPicker from "../components/emojiPicker";
 
 const Placeholder = require("../assets/images/background-image.png");
 
@@ -34,6 +35,8 @@ const RootLayout = () => {
 
   const onSaveImageAsync = async () => {};
 
+  const onClose = () => {};
+
   return (
     <View className="flex-1 justify-center items-center bg-[#25292e]">
       <View className="flex-1 pt-[58]">
@@ -52,6 +55,7 @@ const RootLayout = () => {
               label="Save"
               onPress={onSaveImageAsync}
             />
+            <EmojiPicker onPress={onClose} />
           </View>
         </View>
       ) : (
