@@ -4,6 +4,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 const EmojiPicker = ({ isVisible, children, onClose }) => {
   return (
     <Modal animationType="slide" visible={isVisible} transparent={true} >
+        {console.log('isVisible:',isVisible)}
       <View
         className="h-1/4 w-full bg-[#25292e] absolute bottom-0 "
         style={{ borderTopRightRadius: 18, borderTopLeftRadius: 18 }}

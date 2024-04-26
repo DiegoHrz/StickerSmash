@@ -14,6 +14,7 @@ const Placeholder = require("../assets/images/background-image.png");
 const RootLayout = () => {
   const [showAppOptions, setShowAppOptions] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -23,7 +24,7 @@ const RootLayout = () => {
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
-      console.log(selectedImage);
+      console.log("selectedImage:", selectedImage);
 
       setShowAppOptions(true);
     } else {
@@ -31,11 +32,19 @@ const RootLayout = () => {
     }
   };
 
-  const onReset = () => {};
+  const onReset = () => {
+    setShowAppOptions(true);
+    console.log("isModalVisible",isModalVisible)
+  };
 
   const onSaveImageAsync = async () => {};
 
-  const onClose = () => {};
+  const onAddSticker = () => {
+    setIsModalVisible(true);
+  };
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <View className="flex-1 justify-center items-center bg-[#25292e]">
@@ -49,13 +58,12 @@ const RootLayout = () => {
         <View className="absolute bottom-[140]">
           <View className="flex-row items-center">
             <IconButton icon="refresh" label="Reset" onPress={onReset} />
-            <CircleButton />
+            <CircleButton onPress={onAddSticker} />
             <IconButton
               icon="save-alt"
               label="Save"
               onPress={onSaveImageAsync}
             />
-            <EmojiPicker onPress={onClose} />
           </View>
         </View>
       ) : (
@@ -73,6 +81,11 @@ const RootLayout = () => {
           />
         </View>
       )}
+      {console.log(EmojiPicker)}
+      <EmojiPicker
+        isVisible={isModalVisible}
+        onClose={onModalClose}
+      ></EmojiPicker>
       <StatusBar style="auto" />
     </View>
   );
