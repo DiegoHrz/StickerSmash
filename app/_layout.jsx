@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import ImageViewer from "../components/image";
 import Button from "../components/pressable";
 import CircleButton from "../components/circleButton";
+import IconButton from "../components/iconButton";
 
 const Placeholder = require("../assets/images/background-image.png");
 
@@ -28,7 +29,10 @@ const RootLayout = () => {
       alert("You did not select any image.");
     }
   };
-  
+
+  const onReset = () => {};
+
+  const onSaveImageAsync = async () => {};
 
   return (
     <View className="flex-1 justify-center items-center bg-[#25292e]">
@@ -39,8 +43,16 @@ const RootLayout = () => {
         />
       </View>
       {showAppOptions ? (
-        <View>
-          <CircleButton  />
+        <View className="absolute bottom-[140]">
+          <View className="flex-row items-center">
+            <IconButton icon="refresh" label="Reset" onPress={onReset} />
+            <CircleButton />
+            <IconButton
+              icon="save-alt"
+              label="Save"
+              onPress={onSaveImageAsync}
+            />
+          </View>
         </View>
       ) : (
         <View style={{ flex: 1 / 3, alignItems: "center" }}>
