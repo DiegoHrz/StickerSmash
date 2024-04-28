@@ -9,6 +9,7 @@ import CircleButton from "../components/circleButton";
 import IconButton from "../components/iconButton";
 import EmojiPicker from "../components/emojiPicker";
 import EmojiList from "../components/emojiList";
+import EmojiSticker from "../components/emojiSticker";
 
 const Placeholder = require("../assets/images/background-image.png");
 
@@ -55,6 +56,7 @@ const RootLayout = () => {
           placeholderImageSource={Placeholder}
           selectedImage={selectedImage}
         />
+        {pickedEmoji && (<EmojiSticker imageSize={40} stickerSource={pickedEmoji}  /> )}
       </View>
       {showAppOptions ? (
         <View className="absolute bottom-[140]">
