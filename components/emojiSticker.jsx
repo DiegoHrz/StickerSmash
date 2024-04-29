@@ -1,10 +1,10 @@
 import { View, Image } from 'react-native'
-import React from 'react'
+import Animated  from 'react-native-reanimated'
 
 const EmojiSticker = ({imageSize, stickerSource}) => {
   return (
     <View style={{top: -350}} >
-        <Image source={stickerSource} style={{width: imageSize, height: imageSize}} resizeMode="contain" />
+        <Animated.Image source={stickerSource} style={{width: imageSize, height: imageSize}} resizeMode="contain" />
     </View>
   )
 }
