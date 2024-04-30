@@ -11,24 +11,28 @@ const EmojiSticker = ({ imageSize, stickerSource }) => {
 
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
-    .onStart(() => {if(scaleImage.value !== imageSize * 2){
-        scaleImage.value = scaleImage.value * 2
-    }});
+    .onStart(() => {
+      if (scaleImage.value !== imageSize * 2) {
+        scaleImage.value = scaleImage.value * 2;
+      }
+    });
 
-  const imageStyle = useAnimatedStyle(()=>{
+  const imageStyle = useAnimatedStyle(() => {
     return {
-        width: withSpring(scaleImage.value),
-        height: withSpring(scaleImage.value),
-    }
-  })  
+      width: withSpring(scaleImage.value),
+      height: withSpring(scaleImage.value),
+    };
+  });
 
   return (
     <View style={{ top: -350 }}>
-      <Animated.Image
-        source={stickerSource}
-        style={{ width: imageSize, height: imageSize }}
-        resizeMode="contain"
-      />
+      <GestureDetector gesture={doubleTap}>
+        <Animated.Image
+          source={stickerSource}
+          style={[imageStyle, { width: imageSize, height: imageSize }]}
+          resizeMode="contain"
+        />
+      </GestureDetector>
     </View>
   );
 };
