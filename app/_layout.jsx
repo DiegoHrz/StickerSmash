@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+import * as MediaLibrary from "expo-media-library"
 
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
@@ -19,6 +20,8 @@ const RootLayout = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [pickedEmoji, setPickedEmoji] = useState(null)
+
+  const [status, requiredPermission] = MediaLibrary.usePermissions()
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -49,6 +52,10 @@ const RootLayout = () => {
   const onModalClose = () => {
     setIsModalVisible(false);
   };
+
+  if (status === null) {
+    requestPermission();
+  }
 
   return (
     <GestureHandlerRootView className="flex-1 justify-center items-center bg-[#25292e]">
