@@ -3,6 +3,8 @@ import * as MediaLibrary from "expo-media-library";
 
 import React, { useRef, useState } from "react";
 
+import domtoimage from 'dom-to-image'
+
 import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ImageViewer from "../components/image";
