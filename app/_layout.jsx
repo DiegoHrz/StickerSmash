@@ -1,8 +1,9 @@
 import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library"
+import * as MediaLibrary from "expo-media-library";
+
+import React, { useRef, useState } from "react";
 
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import ImageViewer from "../components/image";
 import Button from "../components/pressable";
@@ -11,7 +12,8 @@ import IconButton from "../components/iconButton";
 import EmojiPicker from "../components/emojiPicker";
 import EmojiList from "../components/emojiList";
 import EmojiSticker from "../components/emojiSticker";
-import {GestureHandlerRootView} from 'react-native-gesture-handler'
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { captureRef } from "react-native-view-shot";
 
 const Placeholder = require("../assets/images/background-image.png");
 
@@ -19,9 +21,11 @@ const RootLayout = () => {
   const [showAppOptions, setShowAppOptions] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [pickedEmoji, setPickedEmoji] = useState(null)
+  const [pickedEmoji, setPickedEmoji] = useState(null);
 
-  const [status, requiredPermission] = MediaLibrary.usePermissions()
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  const imageRef = useRef();
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -41,10 +45,24 @@ const RootLayout = () => {
 
   const onReset = () => {
     setShowAppOptions(true);
-    console.log("isModalVisible",isModalVisible)
+    console.log("isModalVisible", isModalVisible);
   };
 
-  const onSaveImageAsync = async () => {};
+  const onSaveImageAsync = async () => {
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if (localUri) {
+        alert("Saved!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onAddSticker = () => {
     setIsModalVisible(true);
@@ -59,13 +77,16 @@ const RootLayout = () => {
 
   return (
     <GestureHandlerRootView className="flex-1 justify-center items-center bg-[#25292e]">
-      
       <View className="flex-1 pt-[58]">
-        <ImageViewer
-          placeholderImageSource={Placeholder}
-          selectedImage={selectedImage}
-        />
-        {pickedEmoji && (<EmojiSticker imageSize={40} stickerSource={pickedEmoji}  /> )}
+        <View ref={imageRef} collapsable={false}>
+          <ImageViewer
+            placeholderImageSource={Placeholder}
+            selectedImage={selectedImage}
+          />
+          {pickedEmoji && (
+            <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+          )}
+        </View>
       </View>
       {showAppOptions ? (
         <View className="absolute bottom-[140]">
@@ -95,11 +116,8 @@ const RootLayout = () => {
         </View>
       )}
       {console.log(EmojiPicker)}
-      <EmojiPicker
-        isVisible={isModalVisible}
-        onClose={onModalClose}
-      >
-        <EmojiList onCloseModal={onModalClose} onSelect={setPickedEmoji} /> 
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        <EmojiList onCloseModal={onModalClose} onSelect={setPickedEmoji} />
       </EmojiPicker>
       <StatusBar style="auto" />
     </GestureHandlerRootView>
