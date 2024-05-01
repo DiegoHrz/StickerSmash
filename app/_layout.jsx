@@ -46,8 +46,8 @@ const RootLayout = () => {
   };
 
   const onReset = () => {
-    setShowAppOptions(true);
-    console.log("isModalVisible", isModalVisible);
+    setShowAppOptions(false);
+    setPickedEmoji(null);
   };
 
   const onSaveImageAsync = async () => {
