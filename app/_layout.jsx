@@ -48,6 +48,7 @@ const RootLayout = () => {
   const onReset = () => {
     setShowAppOptions(false);
     setPickedEmoji(null);
+    setSelectedImage(null);
   };
 
   const onSaveImageAsync = async () => {
